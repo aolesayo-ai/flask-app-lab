@@ -1,41 +1,123 @@
 {% extends "base.html" %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-md-4 text-center">
-        <img src="{{ url_for('static', filename='images/logo.jpg.JPG') }}" class="img-fluid border border-2 rounded mb-3 shadow-sm" alt="Фото" style="max-width: 180px;">
+
+<div class="container">
+    <!-- Header section with photo and name -->
+    <header class="row align-items-center mb-5 pb-4 border-bottom">
+        <div class="col-md-4 text-center mb-4 mb-md-0">
+            <div class="profile-img-wrapper mx-auto mb-3">
+                <img src="{{ url_for('static', filename='images/logo.jpg.JPG') }}" class="img-fluid profile-img" alt="Олеся Андрієнко">
+            </div>
+            <h1 class="h3 mt-3 fw-bold">Олеся Андрієнко</h1>
+            <p class="text-muted mb-0">Спеціальність: Програмна інженерія</p>
+        </div>
+        <div class="col-md-8">
+            <section>
+                <h2>Про себе</h2>
+                <p class="lead">Вітаю! Я студентка спеціальності «Програмна інженерія», захоплююсь бекенд- та веб-розробкою, програмуванням і роботою з базами даних.</p>
+            </section>
+        </div>
+    </header>
+
+    <!-- Main sections in a card layout -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow-sm mb-4 border-0">
+                <div class="card-body">
+                    <h2>Освіта</h2>
+                    <p class="card-text">Навчаюся у Прикарпатському національному університеті імені Василя Стефаника.</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-8">
-        <section class="mb-4">
-            <h2>Про себе</h2>
-            <p>Вітаю! Я студентка спеціальності "Програмна інженерія", захоплююсь бекенд- та веб-розробкою, програмуванням і роботою з базами даних.</p>
-        </section>
-        
-        <section class="mb-4">
-            <h2>Освіта</h2>
-            <p>Навчаюся у Прикарпатському національному університеті імені Василя Стефаника.</p>
-        </section>
+    
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100 border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-box me-3"><i class="fas fa-code"></i></div>
+                        <h2 class="card-title mb-0 h5 fw-bold text-primary">Навички</h2>
+                    </div>
+                    <ul class="card-text">
+                        <li>Java / Spring Boot / Spring Web MVC</li>
+                        <li>Python / Flask</li>
+                        <li>JavaScript, HTML5, CSS3, Bootstrap</li>
+                        <li>Робота з реляційними базами даних (SQL, H2)</li>
+                        <li>Git / GitHub</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100 border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-box me-3"><i class="fas fa-cogs"></i></div>
+                        <h2 class="card-title mb-0 h5 fw-bold text-primary">Технології</h2>
+                    </div>
+                    <p class="card-text">IntelliJ IDEA, VS Code, Jinja2, Thymeleaf, Maven, Render, venv.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <section class="mb-4">
-            <h2>Навички</h2>
-            <ul>
-                <li>Java / Spring Boot / Spring Web MVC</li>
-                <li>Python / Flask</li>
-                <li>JavaScript, HTML5, CSS3, Bootstrap</li>
-                <li>Робота з реляційними базами даних (SQL, H2)</li>
-                <li>Git / GitHub</li>
-            </ul>
-        </section>
-
-        <section class="mb-4">
-            <h2>Технології</h2>
-            <p>IntelliJ IDEA, VS Code, Jinja2, Thymeleaf, Maven, Render, venv.</p>
-        </section>
-
-        <section class="mb-4">
-            <h2>Досвід роботи / Проєкти</h2>
-            <p>Розробка бекенд-додатків на Java та Spring Boot, створення вебсайтів на Python Flask, робота з архітектурою додатків та базами даних.</p>
-        </section>
+    <div class="row mt-4">
+        <div class="col-lg-12">
+            <div class="card shadow-sm mb-4 border-0">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-box me-3"><i class="fas fa-briefcase"></i></div>
+                        <h2 class="card-title mb-0 h5 fw-bold text-primary">Досвід роботи / Проєкти</h2>
+                    </div>
+                    <p class="card-text">Розробка бекенд-додатків на Java та Spring Boot, створення вебсайтів на Python Flask, робота з архітектурою додатків та базами даних.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+.profile-img-wrapper {
+    width: 180px;
+    height: 180px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    padding: 5px;
+    background: linear-gradient(45deg, #0d6efd, #6610f2);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    transition: transform 0.3s ease;
+}
+
+.profile-img-wrapper:hover .profile-img {
+    transform: scale(1.05);
+}
+
+.icon-box {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cfe2ff;
+    color: #0d6efd;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+
+header.row.align-items-center {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 40px !important;
+}
+</style>
 {% endblock %}
