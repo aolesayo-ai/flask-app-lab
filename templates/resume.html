@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4 text-center">
+        <img src="{{ url_for('static', filename='images/logo.jpg.JPG') }}" class="img-fluid border border-2 rounded mb-3 shadow-sm" alt="Фото" style="max-width: 180px;">
+    </div>
+    <div class="col-md-8">
+        <section class="mb-4">
+            <h2>Про себе</h2>
+            <p>Вітаю! Я студентка спеціальності "Програмна інженерія", захоплююсь бекенд- та веб-розробкою, програмуванням і роботою з базами даних.</p>
+        </section>
+        
+        <section class="mb-4">
+            <h2>Освіта</h2>
+            <p>Навчаюся у Прикарпатському національному університеті імені Василя Стефаника.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>Навички</h2>
+            <ul>
+                <li>Java / Spring Boot / Spring Web MVC</li>
+                <li>Python / Flask</li>
+                <li>JavaScript, HTML5, CSS3, Bootstrap</li>
+                <li>Робота з реляційними базами даних (SQL, H2)</li>
+                <li>Git / GitHub</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h2>Технології</h2>
+            <p>IntelliJ IDEA, VS Code, Jinja2, Thymeleaf, Maven, Render, venv.</p>
+        </section>
+
+        <section class="mb-4">
+            <h2>Досвід роботи / Проєкти</h2>
+            <p>Розробка бекенд-додатків на Java та Spring Boot, створення вебсайтів на Python Flask, робота з архітектурою додатків та базами даних.</p>
+        </section>
+    </div>
+</div>
+{% endblock %}

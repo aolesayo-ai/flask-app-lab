@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2>Контакти</h2>
+        <p>Зв'яжіться зі мною за допомогою форми нижче:</p>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Ваше ім'я</label>
+                <input type="text" class="form-control" id="name" placeholder="Введіть ім'я">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Повідомлення</label>
+                <textarea class="form-control" id="message" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Надіслати</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
