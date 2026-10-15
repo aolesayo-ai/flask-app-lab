@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0 p-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="fw-bold mb-0">{{ product.name }}</h2>
+                        <span class="badge bg-success fs-5">${{ product.price }}</span>
+                    </div>
+                    <hr>
+                    <h5 class="fw-bold text-secondary mb-3">Опис товару:</h5>
+                    <p class="card-text fs-5 text-dark">{{ product.content }}</p>
+                    
+                    <div class="mt-4 pt-3 border-top">
+                        <a href="{{ url_for('products.products_list') }}" class="btn btn-outline-secondary">
+                            &larr; Повернутися до списку товарів
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
