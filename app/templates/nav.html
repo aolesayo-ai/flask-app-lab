@@ -6,8 +6,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="#">Резюме</a>
-        <a class="nav-link" href="#">Контакти</a>
+        <a class="nav-link" href="{{ url_for('resume') }}">Резюме</a>
+        <a class="nav-link" href="{{ url_for('contacts') }}">Контакти</a>
         <a class="nav-link" href="{{ url_for('products.products_list') }}">Товари</a>
         <a class="nav-link" href="{{ url_for('users.profile') }}">Профіль</a>
         <a class="nav-link" href="{{ url_for('users.login') }}">Вхід</a>

@@ -76,3 +76,16 @@ def set_theme(theme_name):
         resp.set_cookie('theme', theme_name, max_age=60*60*24*30)
         flash(f'Колірну схему змінено на {theme_name}', 'success')
     return resp
+
+# Маршрути з лабораторної №3 (повернуто)
+@users_bp.route("/hi/<string:name>")
+def greetings(name):
+    name = name.upper()
+    age = request.args.get("age", None, int)
+    return render_template("users/hi.html", name=name, age=age)
+
+
+@users_bp.route("/admin")
+def admin():
+    to_url = url_for("users.greetings", name="administrator", age=45, _external=True)
+    return redirect(to_url)
