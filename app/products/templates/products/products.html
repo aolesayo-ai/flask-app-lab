@@ -4,25 +4,58 @@
 
 {% block content %}
 <div class="container my-4">
-    <h2 class="mb-4 fw-bold text-center">Каталог товарів</h2>
-    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Каталог товарів</h2>
+        <a href="{{ url_for('products.add_product') }}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Додати товар
+        </a>
+    </div>
+
+    {% if products %}
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for product in products %}
         <div class="col">
-            <div class="card h-100 shadow-sm border-0">
+            <div class="card h-100 shadow-sm border-0 text-dark">
+                {% set img = product_image_url(product) %}
+                {% if img %}
+                    <img src="{{ img }}" class="card-img-top product-img" alt="{{ product.name }}">
+                {% else %}
+                    <div class="product-img product-no-img card-img-top">
+                        <i class="fas fa-image fa-2x"></i><span>Немає фото</span>
+                    </div>
+                {% endif %}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold text-primary">{{ product.name }}</h5>
-                    <p class="card-text text-muted flex-grow-1">{{ product.content }}</p>
-                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
-                        <span class="fs-4 fw-bold text-success">${{ product.price }}</span>
+                    <p class="mb-1"><span class="badge bg-secondary">{{ product.category | category_label }}</span></p>
+                    <p class="mb-1 text-muted small">В наявності: <strong>{{ product.quantity }}</strong> шт.</p>
+                    <p class="mb-0 text-muted small">Додано: {{ product.created_at }}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+                        <span class="fs-4 fw-bold text-success">${{ '%.2f' % product.price }}</span>
                         <a href="{{ url_for('products.detail_product', id=product.id) }}" class="btn btn-primary btn-sm px-3">
                             Детальніше &rarr;
                         </a>
                     </div>
                 </div>
+                <div class="card-footer bg-white border-0 d-flex gap-2 pb-3">
+                    <a href="{{ url_for('products.edit_product', id=product.id) }}" class="btn btn-outline-secondary btn-sm flex-fill">Редагувати</a>
+                    <form method="POST" action="{{ url_for('products.delete_product', id=product.id) }}" class="flex-fill"
+                          onsubmit="return confirm('Видалити товар «{{ product.name }}»?');">
+                        {{ delete_form.hidden_tag() }}
+                        <button type="submit" class="btn btn-outline-danger btn-sm w-100">Видалити</button>
+                    </form>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    {% else %}
+        <p class="text-muted text-center">Товарів ще немає.</p>
+    {% endif %}
 </div>
+
+<style>
+.product-img { height: 200px; object-fit: cover; }
+.product-no-img { background: #e2e8f0; color: #64748b; display: flex; flex-direction: column;
+                  align-items: center; justify-content: center; gap: .5rem; }
+</style>
 {% endblock %}

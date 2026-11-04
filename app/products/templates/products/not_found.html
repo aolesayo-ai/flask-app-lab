@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Товар не знайдено{% endblock %}
+
+{% block content %}
+<div class="alert alert-warning my-5">
+    <h4 class="alert-heading">Товар #{{ product_id }} не знайдено</h4>
+    <p class="mb-0">Можливо, його було видалено.
+        <a href="{{ url_for('products.products_list') }}">Повернутися до списку товарів</a></p>
+</div>
+{% endblock %}
