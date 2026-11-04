@@ -1,5 +1,6 @@
 """Сховище товарів на базі TinyDB (JSON-файл data/products.json)."""
 import os
+import shutil
 import uuid
 from datetime import datetime
 
@@ -8,13 +9,14 @@ from tinydb import TinyDB
 
 TABLE_NAME = 'products'
 
-# Товари з попередніх лаб — додаються лише при першому створенні файлу БД
+# Товари з попередніх лаб — додаються лише при першому створенні файлу БД.
+# 'image' тут — ім'я файлу в static/seed/, при додаванні він копіюється в uploads/
 SEED_PRODUCTS = [
-    {'name': 'Laptop', 'price': 1200.0, 'category': 'electronics', 'quantity': 5, 'image': None,
+    {'name': 'Laptop', 'price': 1200.0, 'category': 'electronics', 'quantity': 5, 'image': 'laptop.png',
      'content': "Потужний ноутбук з процесором Intel Core i7, 16 ГБ оперативної пам'яті та SSD на 512 ГБ."},
-    {'name': 'Phone', 'price': 800.0, 'category': 'electronics', 'quantity': 10, 'image': None,
+    {'name': 'Phone', 'price': 800.0, 'category': 'electronics', 'quantity': 10, 'image': 'phone.png',
      'content': 'Смартфон із 6.5-дюймовим OLED-дисплеєм, подвійною камерою та акумулятором на 5000 мА·год.'},
-    {'name': 'PC', 'price': 1800.0, 'category': 'electronics', 'quantity': 3, 'image': None,
+    {'name': 'PC', 'price': 1800.0, 'category': 'electronics', 'quantity': 3, 'image': 'pc.png',
      'content': "Настільний комп'ютер для ігор або роботи з графікою: RTX 4070, 32 ГБ RAM, 1 ТБ SSD."},
 ]
 
@@ -44,14 +46,21 @@ def init_storage(app):
     """Створює JSON-файл і таблицю products, реєструє закриття БД після запиту."""
     app.teardown_appcontext(close_db)
     with app.app_context():
-        is_new = not os.path.exists(app.config['PRODUCTS_DB'])
-        db = get_db()
-        if is_new:
-            for product in SEED_PRODUCTS:
-                create_product(product)
-        elif TABLE_NAME not in db.tables():
-            table = db.table(TABLE_NAME)
-            table.remove(doc_ids=[table.insert({})])  # створює порожню таблицю у файлі
+        ensure_storage()
+
+
+def ensure_storage():
+    """Новий файл БД заповнюється стартовими товарами, в існуючому гарантується таблиця."""
+    is_new = not os.path.exists(current_app.config['PRODUCTS_DB'])
+    db = get_db()
+    if is_new:
+        for product in SEED_PRODUCTS:
+            record = dict(product)
+            record['image'] = copy_seed_image(product['image'])
+            create_product(record)
+    elif TABLE_NAME not in db.tables():
+        table = db.table(TABLE_NAME)
+        table.remove(doc_ids=[table.insert({})])  # створює порожню таблицю у файлі
 
 
 def _table():
@@ -118,6 +127,20 @@ def save_image(file_storage):
     folder = upload_folder()
     os.makedirs(folder, exist_ok=True)
     file_storage.save(os.path.join(folder, filename))
+    return f'uploads/{filename}'
+
+
+def copy_seed_image(seed_name):
+    """Копіює стартове зображення з static/seed/ в uploads/ під UUID-ім'ям."""
+    from . import products_bp
+    source = os.path.join(products_bp.static_folder, 'seed', seed_name or '')
+    if not seed_name or not os.path.isfile(source):
+        return None
+    ext = seed_name.rsplit('.', 1)[-1].lower()
+    filename = f'{uuid.uuid4().hex}.{ext}'
+    folder = upload_folder()
+    os.makedirs(folder, exist_ok=True)
+    shutil.copyfile(source, os.path.join(folder, filename))
     return f'uploads/{filename}'
 
 

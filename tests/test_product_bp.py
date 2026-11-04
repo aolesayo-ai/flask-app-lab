@@ -67,6 +67,18 @@ class ProductCrudTestCase(unittest.TestCase):
     def upload_path(self, relative):
         return os.path.join(self.upload_dir, os.path.basename(relative))
 
+    # ---------- Storage init ----------
+
+    def test_new_storage_is_seeded_with_images(self):
+        with app.app_context():
+            storage.ensure_storage()
+        products = self.stored()
+        self.assertEqual([p["name"] for p in products], ["Laptop", "Phone", "PC"])
+        for product in products:
+            self.assertTrue(product["image"].startswith("uploads/"))
+            self.assertTrue(os.path.isfile(self.upload_path(product["image"])))
+        self.assertIn("/product/static/uploads/", self.text(self.client.get("/product")))
+
     # ---------- Create ----------
 
     def test_add_form_page(self):
