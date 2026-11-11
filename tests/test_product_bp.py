@@ -5,7 +5,9 @@ import shutil
 import tempfile
 import unittest
 
-from app import app
+from app import create_app
+
+app = create_app("testing")
 from app.products import storage
 
 # мінімальний валідний PNG 1x1

@@ -1,0 +1,38 @@
+/* Стилі блюпринта posts (Лабораторна №6) */
+.post-card {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(30, 41, 59, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(30, 41, 59, 0.15);
+}
+
+.post-img {
+    height: 180px;
+    object-fit: cover;
+}
+
+.post-badge {
+    background-color: #6366f1;
+    align-self: flex-start;
+    font-weight: 500;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.post-card .btn {
+    border-radius: 8px;
+}
+
+/* заголовок сторінки бере колір теми (світла/темна) */
+.posts-heading {
+    color: inherit;
+}

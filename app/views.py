@@ -3,7 +3,6 @@ import os
 
 from flask import current_app, flash, redirect, render_template, url_for
 
-from . import app
 from .forms import ContactForm
 
 
@@ -26,14 +25,10 @@ def get_contact_logger():
     return logger
 
 
-@app.route('/')
-@app.route('/resume')
 def resume():
     return render_template('resume.html', title='Моє Резюме')
 
 
-@app.route('/contacts', methods=['GET', 'POST'])  # стара адреса з лаб 2–4
-@app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
 
@@ -59,3 +54,12 @@ def contact():
         flash('Повідомлення не надіслано: виправте помилки у формі.', 'error')
 
     return render_template('contacts.html', title='Контакти', form=form)
+
+
+def register_routes(app):
+    """Реєструє загальні маршрути (резюме, контакти) у застосунку."""
+    # перший зареєстрований URL стає основним для url_for()
+    app.add_url_rule('/resume', 'resume', resume)
+    app.add_url_rule('/', 'resume', resume)
+    app.add_url_rule('/contact', 'contact', contact, methods=['GET', 'POST'])
+    app.add_url_rule('/contacts', 'contact', contact, methods=['GET', 'POST'])  # стара адреса з лаб 2–4

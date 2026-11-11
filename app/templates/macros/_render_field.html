@@ -1,4 +1,10 @@
 {% macro render_field(field) %}
+  {% if field.type == "BooleanField" %}
+  <div class="form-check mb-3">
+    {{ field(class="form-check-input", **kwargs) | safe }}
+    {{ field.label(class="form-check-label") }}
+  </div>
+  {% else %}
   {% set base_class = "form-select" if field.type == "SelectField" else "form-control" %}
   <div class="mb-3">
     {{ field.label(class="form-label fw-bold") }}
@@ -15,4 +21,5 @@
       {{ field(class=base_class, **kwargs) | safe }}
     {% endif %}
   </div>
+  {% endif %}
 {% endmacro %}

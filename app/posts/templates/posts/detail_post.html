@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('posts.static', filename='css/posts.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="card post-card mx-auto" style="max-width: 800px;">
+    <div class="card-body">
+        <span class="badge post-badge mb-2">{{ post.category | post_category }}</span>
+        {% if not post.is_active %}<span class="badge bg-secondary mb-2">Прихований</span>{% endif %}
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="post-meta">
+            Автор: <strong>{{ post.author }}</strong> ·
+            Дата: {{ post.posted.strftime('%d.%m.%Y %H:%M') if post.posted }}
+        </p>
+        <p class="card-text" style="white-space: pre-line;">{{ post.content }}</p>
+        <div class="d-flex gap-2 mt-4">
+            <a href="{{ url_for('posts.edit_post', id=post.id) }}" class="btn btn-warning">Edit</a>
+            <a href="{{ url_for('posts.delete_post', id=post.id) }}" class="btn btn-danger">Delete</a>
+            <a href="{{ url_for('posts.all_posts') }}" class="btn btn-outline-secondary ms-auto">До списку</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

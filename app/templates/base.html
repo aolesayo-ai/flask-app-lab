@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Власні стилі -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block css %}{% endblock %}
 </head>
 <!-- Автоматична зміна теми сторінки залежно від кукі 'theme' -->
 <body class="{% if request.cookies.get('theme') == 'dark' %}bg-dark text-white{% else %}bg-light text-dark{% endif %}">

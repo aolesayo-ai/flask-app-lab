@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% from 'macros/_render_field.html' import render_field %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('posts.static', filename='css/posts.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="card post-card mx-auto" style="max-width: 700px;">
+    <div class="card-body">
+        <h2 class="card-title">{{ title }}</h2>
+        <form method="POST"
+              action="{{ url_for('posts.edit_post', id=post.id) if post else url_for('posts.add_post') }}"
+              novalidate>
+            {{ form.hidden_tag() }}
+            {{ render_field(form.title) }}
+            {{ render_field(form.content) }}
+            {{ render_field(form.category) }}
+            {{ render_field(form.publish_date) }}
+            {{ render_field(form.enabled) }}
+            <div class="d-flex gap-2">
+                {{ form.submit(class="btn btn-primary") }}
+                <a href="{{ url_for('posts.detail_post', id=post.id) if post else url_for('posts.all_posts') }}"
+                   class="btn btn-outline-secondary">Скасувати</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
