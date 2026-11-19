@@ -8,4 +8,4 @@ products_bp = Blueprint(
     static_folder='static',
 )
 
-from . import views
+from . import views, models  # noqa: E402,F401
