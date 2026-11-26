@@ -17,7 +17,8 @@
     {% for post in posts %}
     <div class="col">
         <div class="card post-card h-100">
-            <img src="{{ url_for('posts.static', filename='img/default.jpg') }}" class="card-img-top post-img" alt="post">
+            {% set img = post.category if post.category in ['news', 'publication', 'tech', 'other'] else 'default' %}
+            <img src="{{ url_for('posts.static', filename='img/' ~ img ~ '.jpg') }}" class="card-img-top post-img" alt="{{ post.category | post_category }}">
             <div class="card-body d-flex flex-column">
                 <span class="badge post-badge mb-2">{{ post.category | post_category }}</span>
                 <h5 class="card-title">{{ post.title }}</h5>

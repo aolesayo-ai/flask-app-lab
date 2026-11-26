@@ -117,7 +117,7 @@ class PostCrudTestCase(unittest.TestCase):
         self.assertIn('Старий', html)
         self.assertNotIn('Прихований', html)
         self.assertLess(html.index('Новий'), html.index('Старий'))
-        self.assertIn('img/default.jpg', html)
+        self.assertIn('img/tech.jpg', html)  # картинка відповідає категорії поста
         self.assertIn('Add Post', html)
 
     def test_list_truncates_content(self):
