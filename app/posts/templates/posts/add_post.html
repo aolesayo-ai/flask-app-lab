@@ -20,8 +20,20 @@
             {{ render_field(form.category) }}
             {{ render_field(form.publish_date) }}
             {{ render_field(form.author_id) }}
-            {{ render_field(form.tags) }}
-            <div class="form-text mb-3 mt-n2">Утримуйте Ctrl, щоб вибрати кілька тегів.</div>
+            <div class="mb-3">
+                <span class="form-label fw-bold d-block mb-2">{{ form.tags.label.text }}</span>
+                <div class="tag-picker">
+                    {% for option in form.tags %}
+                    <label class="tag-option">
+                        {{ option() }}
+                        <span>#{{ option.label.text }}</span>
+                    </label>
+                    {% else %}
+                    <span class="text-muted">Тегів ще немає.</span>
+                    {% endfor %}
+                </div>
+                <div class="form-text">Можна вибрати кілька тегів.</div>
+            </div>
             {{ render_field(form.enabled) }}
             <div class="d-flex gap-2">
                 {{ form.submit(class="btn btn-primary") }}

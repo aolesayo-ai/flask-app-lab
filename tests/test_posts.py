@@ -73,8 +73,8 @@ class PostCrudTestCase(unittest.TestCase):
         for field in ('title', 'content', 'enabled', 'publish_date', 'category', 'author_id', 'tags'):
             self.assertIn(f'name="{field}"', html)
         self.assertIn('>olesia</option>', html)   # автори з БД
-        self.assertIn('>python</option>', html)   # теги з БД
-        self.assertIn('multiple', html)
+        self.assertIn('#python', html)            # теги з БД
+        self.assertIn('type="checkbox"', html)    # кілька тегів вибираються галочками
 
     def test_create_post(self):
         response = self.client.post('/post/create', data=self.post_data())
@@ -151,7 +151,7 @@ class PostCrudTestCase(unittest.TestCase):
         self.assertIn('value="Старий заголовок"', html)
         self.assertIn('value="2026-05-01T09:15"', html)
         self.assertIn(f'selected value="{self.user2.id}"', html)
-        self.assertIn(f'selected value="{self.tag_python.id}"', html)
+        self.assertRegex(html, rf'<input checked[^>]*name="tags"[^>]*value="{self.tag_python.id}"')
 
     def test_update_post_changes_author_and_tags(self):
         post = self.add(tags=[self.tag_python])
