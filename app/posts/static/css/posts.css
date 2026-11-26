@@ -71,3 +71,52 @@
     padding: 2px 8px;
     font-size: 0.75rem;
 }
+
+/* Вибір кількох тегів галочками у формі поста */
+.tag-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-option {
+    cursor: pointer;
+    margin: 0;
+}
+
+.tag-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tag-option span {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid #bae6fd;
+    background-color: #f8fafc;
+    color: #0369a1;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.tag-option span::before {
+    content: '+ ';
+}
+
+.tag-option input:checked + span {
+    background-color: #0ea5e9;
+    border-color: #0284c7;
+    color: #ffffff;
+}
+
+.tag-option input:checked + span::before {
+    content: '✓ ';
+}
+
+.tag-option input:focus-visible + span {
+    outline: 2px solid #0284c7;
+    outline-offset: 2px;
+}

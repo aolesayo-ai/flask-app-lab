@@ -5,6 +5,7 @@ from wtforms import (BooleanField, SelectField, SelectMultipleField, StringField
                      TextAreaField)
 from wtforms.fields import DateTimeLocalField
 from wtforms.validators import DataRequired, Length
+from wtforms.widgets import CheckboxInput, ListWidget
 
 from app import db
 
@@ -33,7 +34,9 @@ class PostForm(FlaskForm):
     # Лабораторна 8: автор і теги вибираються зі списків, завантажених із БД
     author_id = SelectField('Автор', coerce=int,
                             validators=[DataRequired(message='Оберіть автора')])
-    tags = SelectMultipleField('Теги', coerce=int, render_kw={'size': 4})
+    # SelectMultipleField, показаний як набір галочок (зручніше, ніж список із Ctrl)
+    tags = SelectMultipleField('Теги', coerce=int,
+                               widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
     submit = SubmitField('Зберегти')
 
     def __init__(self, *args, **kwargs):
