@@ -1,6 +1,8 @@
 import os
 
 from flask import Flask, flash, redirect, render_template, request
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
@@ -22,6 +24,13 @@ class Base(DeclarativeBase):
 
 db = SQLAlchemy(model_class=Base)
 migrate = Migrate()
+bcrypt = Bcrypt()
+
+# Лабораторна 9: Flask-Login
+login_manager = LoginManager()
+login_manager.login_view = 'users.login'           # куди перенаправляти неавторизованих
+login_manager.login_message = 'Увійдіть, щоб переглянути цю сторінку.'
+login_manager.login_message_category = 'info'
 
 
 def create_app(config_name=None):
@@ -36,6 +45,8 @@ def create_app(config_name=None):
     # розширення
     db.init_app(app)
     migrate.init_app(app, db, render_as_batch=True)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
 
     # маршрути та блюпринти
     from .views import register_routes
