@@ -7,6 +7,8 @@ class Config:
     """Базова конфігурація, спільна для всіх середовищ."""
     SECRET_KEY = os.environ.get('SECRET_KEY', 'super_secret_key_123')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # Лабораторна 8, п.13: журнал SQL-запитів вмикається змінною середовища SQLALCHEMY_ECHO=1
+    SQLALCHEMY_ECHO = os.environ.get('SQLALCHEMY_ECHO') == '1'
     DEBUG = False
     TESTING = False
 

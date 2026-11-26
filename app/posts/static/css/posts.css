@@ -36,3 +36,38 @@
 .posts-heading {
     color: inherit;
 }
+
+/* Лабораторна 8: теги поста */
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.post-tags-label {
+    font-weight: 600;
+    color: #475569;
+    margin-right: 2px;
+}
+
+.tag-chip {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.tag-chip:hover {
+    background-color: #bae6fd;
+}
+
+.tag-chip-sm {
+    padding: 2px 8px;
+    font-size: 0.75rem;
+}

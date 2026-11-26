@@ -19,6 +19,9 @@
             {{ render_field(form.content) }}
             {{ render_field(form.category) }}
             {{ render_field(form.publish_date) }}
+            {{ render_field(form.author_id) }}
+            {{ render_field(form.tags) }}
+            <div class="form-text mb-3 mt-n2">Утримуйте Ctrl, щоб вибрати кілька тегів.</div>
             {{ render_field(form.enabled) }}
             <div class="d-flex gap-2">
                 {{ form.submit(class="btn btn-primary") }}

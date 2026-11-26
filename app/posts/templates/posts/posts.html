@@ -22,8 +22,9 @@
                 <span class="badge post-badge mb-2">{{ post.category | post_category }}</span>
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text text-muted">{{ post.content[:100] }}{% if post.content | length > 100 %}…{% endif %}</p>
+                {% if post.tags %}<div class="post-tags mb-2">{% for tag in post.tags %}<span class="tag-chip tag-chip-sm">#{{ tag.name }}</span>{% endfor %}</div>{% endif %}
                 <div class="post-meta mt-auto mb-2">
-                    {{ post.posted.strftime('%d.%m.%Y %H:%M') if post.posted }} · {{ post.author }}
+                    {{ post.posted.strftime('%d.%m.%Y %H:%M') if post.posted }} · {{ post.user.username if post.user else 'невідомий' }}
                 </div>
                 <a href="{{ url_for('posts.detail_post', id=post.id) }}" class="btn btn-outline-primary btn-sm">Читати далі</a>
             </div>

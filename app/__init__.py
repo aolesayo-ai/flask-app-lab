@@ -41,6 +41,7 @@ def create_app(config_name=None):
     from .views import register_routes
     register_routes(app)
 
+    from .users import models as _user_models  # noqa: F401 (щоб Alembic бачив модель)
     from .users.views import users_bp
     app.register_blueprint(users_bp, url_prefix='/users')
 
